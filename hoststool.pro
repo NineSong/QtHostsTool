@@ -4,19 +4,18 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       +=network
+QT += core gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = hosts_tool
+TARGET = hoststool
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
         hoststool.cpp
 
-HEADERS  += hoststool.h
+HEADERS += hoststool.h
 
-FORMS    += hoststool.ui
+FORMS += hoststool.ui
 
 RESOURCES +=
