@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>688</width>
-    <height>457</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,7 +67,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButton_start">
        <property name="styleSheet">
         <string notr="true">;
 font: 75 9pt &quot;微软雅黑&quot;;</string>
@@ -113,74 +113,20 @@ font: 75 9pt &quot;微软雅黑&quot;;</string>
      </property>
     </item>
    </widget>
-   <widget class="QCommandLinkButton" name="commandLinkButton">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>400</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>微软雅黑</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>我有疑问?</string>
-    </property>
-   </widget>
-   <widget class="QCommandLinkButton" name="commandLinkButton_2">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>400</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>微软雅黑</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>我有建议?</string>
-    </property>
-   </widget>
-   <widget class="QCommandLinkButton" name="commandLinkButton_3">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>400</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Segoe UI</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>我有其他源?</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
       <x>610</x>
       <y>360</y>
-      <width>77</width>
+      <width>82</width>
       <height>41</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButton_clear">
        <property name="text">
-        <string>Clear</string>
+        <string>清空</string>
        </property>
       </widget>
      </item>
@@ -193,15 +139,22 @@ font: 75 9pt &quot;微软雅黑&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_H">
     <property name="title">
      <string>帮助(&amp;H)</string>
     </property>
-    <addaction name="actionAbout_A"/>
+    <addaction name="action_about"/>
    </widget>
+   <widget class="QMenu" name="menu_F">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <addaction name="action_exit"/>
+   </widget>
+   <addaction name="menu_F"/>
    <addaction name="menu_H"/>
   </widget>
   <action name="action_hosts">
@@ -209,13 +162,35 @@ font: 75 9pt &quot;微软雅黑&quot;;</string>
     <string>添加hosts源(&amp;A)</string>
    </property>
   </action>
-  <action name="actionAbout_A">
+  <action name="action_about">
    <property name="text">
-    <string>About(&amp;A)</string>
+    <string>关于(&amp;A)</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>退出(&amp;Q)</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>action_exit</sender>
+   <signal>triggered()</signal>
+   <receiver>HostsTool</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>343</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
