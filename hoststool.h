@@ -2,18 +2,19 @@
 #define HOSTSTOOL_H
 
 #include <QMainWindow>
+#include <QString>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 #include <QtNetwork/qnetworkaccessmanager.h>
 #include <QtNetwork/qnetworkrequest.h>
 #include <QtNetwork/qnetworkreply.h>
-#include <qstring.h>
-#include <qfile.h>
-#include <qtextstream.h>
-#include <QMessageBox>
 #include <QtNetwork/qssl.h>
 #include <QtNetwork/qsslconfiguration.h>
 #include <QtNetwork/qsslsocket.h>
-#include <qstandardpaths.h>
+#include <QStandardPaths>
 #include <QDesktopServices>
+
 namespace Ui {
 class HostsTool;
 }
@@ -21,25 +22,17 @@ class HostsTool;
 class HostsTool : public QMainWindow
 {
     Q_OBJECT
-
 public:
-    explicit HostsTool(QWidget *parent = 0);
+    explicit HostsTool(QWidget *parent = NULL);
     ~HostsTool();
-
 private slots:
-    void on_pushButton_clicked();
     void readyread();
-
-    void on_actionAbout_A_triggered();
-
-    void on_commandLinkButton_2_clicked();
-
-    void on_commandLinkButton_clicked();
-
-    void on_commandLinkButton_3_clicked();
-
-    void on_pushButton_2_clicked();
-
+    void on_pushButton_start_clicked();
+    void on_action_about_triggered();
+    // void on_commandLinkButton_2_clicked();
+    // void on_commandLinkButton_clicked();
+    // void on_commandLinkButton_3_clicked();
+    void on_pushButton_clear_clicked();
 private:
     Ui::HostsTool *ui;
     QNetworkAccessManager *manager;
