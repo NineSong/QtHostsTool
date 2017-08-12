@@ -80,6 +80,11 @@ p, li { white-space: pre-wrap; }
           </property>
           <item>
            <property name="text">
+            <string>https://coding.net/u/scaffrey/p/hosts/git/raw/master/hosts</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
             <string extracomment="默认源">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</string>
            </property>
           </item>
@@ -132,9 +137,18 @@ font: 75 9pt &quot;微软雅黑&quot;;</string>
     <property name="title">
      <string>文件(&amp;F)</string>
     </property>
+    <addaction name="action_backupHosts"/>
+    <addaction name="separator"/>
     <addaction name="action_exit"/>
    </widget>
+   <widget class="QMenu" name="menu_E">
+    <property name="title">
+     <string>编辑(&amp;E)</string>
+    </property>
+    <addaction name="action_clear"/>
+   </widget>
    <addaction name="menu_F"/>
+   <addaction name="menu_E"/>
    <addaction name="menu_H"/>
   </widget>
   <action name="action_hosts">
@@ -150,6 +164,16 @@ font: 75 9pt &quot;微软雅黑&quot;;</string>
   <action name="action_exit">
    <property name="text">
     <string>退出(&amp;Q)</string>
+   </property>
+  </action>
+  <action name="action_backupHosts">
+   <property name="text">
+    <string>备份hosts(&amp;B)</string>
+   </property>
+  </action>
+  <action name="action_clear">
+   <property name="text">
+    <string>清空(&amp;C)</string>
    </property>
   </action>
  </widget>
@@ -169,6 +193,38 @@ font: 75 9pt &quot;微软雅黑&quot;;</string>
     <hint type="destinationlabel">
      <x>343</x>
      <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_clear</sender>
+   <signal>triggered()</signal>
+   <receiver>textEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>343</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_clear</sender>
+   <signal>clicked()</signal>
+   <receiver>textEdit</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>636</x>
+     <y>408</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>343</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
