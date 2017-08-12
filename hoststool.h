@@ -14,6 +14,8 @@
 #include <QtNetwork/qsslsocket.h>
 #include <QStandardPaths>
 #include <QDesktopServices>
+#include <QtGlobal>
+#include <QFileDialog>
 
 namespace Ui {
 class HostsTool;
@@ -32,12 +34,13 @@ private slots:
     // void on_commandLinkButton_2_clicked();
     // void on_commandLinkButton_clicked();
     // void on_commandLinkButton_3_clicked();
-    void on_pushButton_clear_clicked();
+    void on_action_backupHosts_triggered();
 private:
     Ui::HostsTool *ui;
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     QString hosts_source;
+    QString get;
 };
 
 #endif // HOSTSTOOL_H
