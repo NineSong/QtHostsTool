@@ -8,12 +8,6 @@ HostsTool::HostsTool(QWidget *parent) :
     ui->setupUi(this);
     manager = new QNetworkAccessManager(this);
     ui->textEdit->append(">>Initialization success!");
-    hosts_source = ui->comboBox->currentText();
-
-    if (!hosts_source.isEmpty())
-        ui->textEdit->append("<p style=\"color:green\">>>读取hosts源地址成功</p>");
-    else
-        ui->textEdit->append("<body style=\" font-family;'微软雅黑\'; font-size:10pt; font-weight:72; font-style:normal;\"><p style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ff0000;\">&gt;&gt;读取hosts失败，请执行：</span></p><p style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">·重启软件</span></p><p style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">·重新下载</span></p></body>");
 }
 
 HostsTool::~HostsTool()
@@ -23,6 +17,7 @@ HostsTool::~HostsTool()
 
 void HostsTool::on_pushButton_start_clicked()
 {
+    hosts_source = ui->comboBox->currentText();
     ui->textEdit->append("<p style=\"color:green\">>>开始配置hosts</p>");
     QSslConfiguration config;
     config.setPeerVerifyMode(QSslSocket::VerifyNone);
@@ -30,14 +25,14 @@ void HostsTool::on_pushButton_start_clicked()
     QNetworkRequest request;
     request.setSslConfiguration(config);
     request.setUrl(QUrl(hosts_source));
-    request.setRawHeader("User-Agent","Mozilla/5.0 (Windows NT 6.2; rv:16.0) Gecko/20100101 Firefox/16.0");
+    request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; rv:16.0) Gecko/20100101 Firefox/16.0");
     reply = manager->get(request);
     connect(reply, SIGNAL(finished()), this, SLOT(readyread()));
 }
 
 void HostsTool::readyread()
 {
-    QString get = QString::fromUtf8(reply->readAll());
+    get = QString::fromUtf8(reply->readAll());
 
     if (!get.isEmpty())
     {
@@ -62,8 +57,6 @@ void HostsTool::readyread()
     }
     else
         ui->textEdit->append("<body style=\" font-family;'微软雅黑\'; font-size:10pt; font-weight:72; font-style:normal;\"><p style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ff0000;\">&gt;&gt;从服务器获取hosts失败，请执行：</span></p><p style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">·打开网络连接</span></p><p style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">·检查hosts源是否存在</span></p><p style=\"margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">·更换hosts源</span></p></body>");
-
-    ui->textEdit->append("<p style=\"color:black\">>>有任何疑问请访问https://github.com/racaljk/hosts/blob/master/README.md</p>");
 }
 
 void HostsTool::on_action_about_triggered()
@@ -71,25 +64,24 @@ void HostsTool::on_action_about_triggered()
     QMessageBox::about(NULL, "About", "Copyright © 2014-2015  racal, All Rights Reserved");
 }
 
-// void HostsTool::on_commandLinkButton_2_clicked()
-// {
-//     const QUrl issue("https://github.com/racaljk/hosts/issues");
-//     QDesktopServices::openUrl(issue);
-// }
-
-// void HostsTool::on_commandLinkButton_clicked()
-// {
-//     const QUrl issue("https://github.com/racaljk/hosts/blob/master/README.md");
-//     QDesktopServices::openUrl(issue);
-// }
-
-// void HostsTool::on_commandLinkButton_3_clicked()
-// {
-//     QMessageBox::about(NULL, "Info", "如果你有其他优质hosts源,并且也愿意分享,请联系邮箱1948638989@qq.com，或者在这个开源项目上直接添加.");
-// }
-
-void HostsTool::on_pushButton_clear_clicked()
+void HostsTool::on_action_backupHosts_triggered()
 {
-    ui->textEdit->clear();
-    ui->textEdit->append(">>clear up!");
+#ifdef Q_OS_WIN
+    QString hosts_path = "";
+#else
+    QString hosts_path = "/etc/hosts";
+#endif
+
+    QFileDialog dialog(this, "备份hosts");
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+
+    if (dialog.exec())
+    {
+        QString path = dialog.selectedFiles().first();
+
+        if (QFile::copy(hosts_path, path))
+            QMessageBox::information(NULL, "", "备份成功！");
+        else
+            QMessageBox::information(NULL, "", "备份失败！");
+    }
 }
