@@ -6,16 +6,19 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
-#include <QtNetwork/qnetworkaccessmanager.h>
-#include <QtNetwork/qnetworkrequest.h>
-#include <QtNetwork/qnetworkreply.h>
-#include <QtNetwork/qssl.h>
-#include <QtNetwork/qsslconfiguration.h>
-#include <QtNetwork/qsslsocket.h>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QSsl>
+#include <QtNetwork/QSslConfiguration>
+#include <QtNetwork/QSslSocket>
 #include <QStandardPaths>
-#include <QDesktopServices>
 #include <QtGlobal>
 #include <QFileDialog>
+
+#ifdef Q_OS_WIN
+    #include <windows.h>
+#endif
 
 namespace Ui {
 class HostsTool;
@@ -40,6 +43,7 @@ private:
     QNetworkAccessManager *manager;
     QNetworkReply *reply;
     QString hosts_source;
+    QString hosts_path;
     QString get;
 };
 
