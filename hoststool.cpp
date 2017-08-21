@@ -8,6 +8,14 @@ HostsTool::HostsTool(QWidget *parent) :
     ui->setupUi(this);
     manager = new QNetworkAccessManager(this);
     ui->textEdit->append(">>Initialization success!");
+
+#ifdef Q_OS_WIN
+    wchar_t buffer[1024];
+    GetSystemDirectory(buffer, 1024);
+    hosts_path = QString::fromWCharArray(buffer) + "/drivers/etc/hosts";
+#else
+    hosts_path = "/etc/hosts";
+#endif
 }
 
 HostsTool::~HostsTool()
@@ -66,14 +74,9 @@ void HostsTool::on_action_about_triggered()
 
 void HostsTool::on_action_backupHosts_triggered()
 {
-#ifdef Q_OS_WIN
-    QString hosts_path = "";
-#else
-    QString hosts_path = "/etc/hosts";
-#endif
-
     QFileDialog dialog(this, "备份hosts");
     dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.selectFile("hosts");
 
     if (dialog.exec())
     {
