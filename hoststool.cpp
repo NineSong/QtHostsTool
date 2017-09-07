@@ -33,17 +33,16 @@ void HostsTool::on_pushButton_start_clicked()
     QNetworkRequest request;
     request.setSslConfiguration(config);
     request.setUrl(QUrl(hosts_source));
-    request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; rv:16.0) Gecko/20100101 Firefox/16.0");
+//    request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.2; rv:16.0) Gecko/20100101 Firefox/16.0");
     reply = manager->get(request);
     connect(reply, SIGNAL(finished()), this, SLOT(readyread()));
 }
 
 void HostsTool::readyread()
 {
-    get = QString::fromUtf8(reply->readAll());
-
-    if (!get.isEmpty())
+    if (reply->error() == QNetworkReply::NoError)
     {
+        get = QString::fromUtf8(reply->readAll());
         ui->textEdit->append("<p style=\"color:green\">>>服务器获取hosts成功,请保证网络通畅</p>");
         ui->textEdit->append(get);
         ui->textEdit->append(">>从<a href=\"" + hosts_source + "\">" + hosts_source + "</a>获取hosts成功！");
@@ -69,7 +68,7 @@ void HostsTool::readyread()
 
 void HostsTool::on_action_about_triggered()
 {
-    QMessageBox::about(NULL, "About", "Copyright © 2014-2015  racal, All Rights Reserved");
+    QMessageBox::about(this, "About", "Copyright © 2014-2015  racal, All Rights Reserved");
 }
 
 void HostsTool::on_action_backupHosts_triggered()
@@ -83,8 +82,8 @@ void HostsTool::on_action_backupHosts_triggered()
         QString path = dialog.selectedFiles().first();
 
         if (QFile::copy(hosts_path, path))
-            QMessageBox::information(NULL, "", "备份成功！");
+            QMessageBox::information(this, "", "备份成功！");
         else
-            QMessageBox::information(NULL, "", "备份失败！");
+            QMessageBox::information(this, "", "备份失败！");
     }
 }
