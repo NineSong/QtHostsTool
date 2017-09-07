@@ -1,12 +1,11 @@
 #include "hoststool.h"
 #include "ui_hoststool.h"
-//#include <qdebug.h>
+//#include <QDebug>
 
 HostsTool::HostsTool(QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::HostsTool)
+    QMainWindow(parent), ui(new Ui::HostsTool), manager(new QNetworkAccessManager(this))
 {
     ui->setupUi(this);
-    manager = new QNetworkAccessManager(this);
     ui->textEdit->append(">>Initialization success!");
 
 #ifdef Q_OS_WIN
@@ -84,6 +83,6 @@ void HostsTool::on_action_backupHosts_triggered()
         if (QFile::copy(hosts_path, path))
             QMessageBox::information(this, "", "备份成功！");
         else
-            QMessageBox::information(this, "", "备份失败！");
+            QMessageBox::critical(this, "", "备份失败！");
     }
 }
