@@ -80,12 +80,12 @@ p, li { white-space: pre-wrap; }
           </property>
           <item>
            <property name="text">
-            <string>https://coding.net/u/scaffrey/p/hosts/git/raw/master/hosts</string>
+            <string>https://coding.net/u/scaffrey/p/hosts/git/raw/master/hosts-files/hosts</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string extracomment="默认源">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</string>
+            <string extracomment="默认源">https://raw.githubusercontent.com/googlehosts/hosts/master/hosts-files/hosts</string>
            </property>
           </item>
          </widget>
